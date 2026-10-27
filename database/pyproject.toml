@@ -1,0 +1,19 @@
+[project]
+name = "clipora-db"
+version = "0.1.0"
+description = "SQLAlchemy models, sessions and Alembic migrations"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "clipora-core",
+  "sqlalchemy>=2.1,<2.2",
+  "psycopg[binary]>=3.3,<4",
+  "pgvector>=0.5,<0.6",
+  "alembic>=1.20,<2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "db"

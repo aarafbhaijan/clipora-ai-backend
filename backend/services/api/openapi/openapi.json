@@ -1,0 +1,5655 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Clipora AI API",
+  "version": "0.1.0"
+ },
+ "paths": {
+  "/api/projects": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Create Project",
+    "operationId": "create_project_api_projects_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CreateProjectIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/CreateProjectOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "List Projects",
+    "operationId": "list_projects_api_projects_get",
+    "parameters": [
+     {
+      "name": "cursor",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Cursor"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProjectPage"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/upload/part-urls": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Part Urls",
+    "operationId": "part_urls_api_projects__project_id__upload_part_urls_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PartUrlsIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PartUrlsOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/uploaded": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Uploaded",
+    "operationId": "uploaded_api_projects__project_id__uploaded_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}": {
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Get Project",
+    "operationId": "get_project_api_projects__project_id__get",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProjectDetail"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Rename Project",
+    "operationId": "rename_project_api_projects__project_id__patch",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RenameIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Delete Project",
+    "description": "Soft delete. The slot and storage are free at once; S3 is purged later, never in this request.",
+    "operationId": "delete_project_api_projects__project_id__delete",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/jobs/{job_id}/retry": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Retry Job",
+    "operationId": "retry_job_api_jobs__job_id__retry_post",
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/messages": {
+   "post": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Send Message",
+    "operationId": "send_message_api_projects__project_id__messages_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SendMessageIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SendMessageOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/ideas": {
+   "post": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "More Ideas",
+    "description": "More ideas: a suggest job that always posts, even after the user has chatted.",
+    "operationId": "more_ideas_api_projects__project_id__ideas_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/edl": {
+   "patch": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Save Edl",
+    "operationId": "save_edl_api_projects__project_id__edl_patch",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     },
+     {
+      "name": "If-Match",
+      "in": "header",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "If-Match"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EDL"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EdlOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "description": "version_conflict, details.latest holds the current plan"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/edl/versions": {
+   "get": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Edl Versions",
+    "description": "Newest first. Each version names its generated video, so the editor can group them.",
+    "operationId": "edl_versions_api_projects__project_id__edl_versions_get",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/EdlVersionOut"
+         },
+         "title": "Response Edl Versions Api Projects  Project Id  Edl Versions Get"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/edl/versions/{version}": {
+   "get": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Edl Version",
+    "operationId": "edl_version_api_projects__project_id__edl_versions__version__get",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     },
+     {
+      "name": "version",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Version"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EdlOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/speaker": {
+   "get": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Speaker",
+    "description": "YOLO person boxes and the main speaker the crop follows (for the editor overlay).",
+    "operationId": "speaker_api_projects__project_id__speaker_get",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SpeakerOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/exports": {
+   "post": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Start Export",
+    "operationId": "start_export_api_projects__project_id__exports_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ExportIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ExportOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/exports/{export_id}": {
+   "get": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Get Export",
+    "operationId": "get_export_api_exports__export_id__get",
+    "parameters": [
+     {
+      "name": "export_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Export Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ExportOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/metadata": {
+   "post": {
+    "tags": [
+     "metadata"
+    ],
+    "summary": "Start Metadata",
+    "operationId": "start_metadata_api_projects__project_id__metadata_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MetadataStartIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MessageOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "metadata"
+    ],
+    "summary": "Get Metadata",
+    "operationId": "get_metadata_api_projects__project_id__metadata_get",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MetadataOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "metadata"
+    ],
+    "summary": "Save Metadata",
+    "operationId": "save_metadata_api_projects__project_id__metadata_patch",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     },
+     {
+      "name": "If-Match",
+      "in": "header",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "If-Match"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MetadataPatchIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MetadataSetOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/metadata/messages": {
+   "post": {
+    "tags": [
+     "metadata"
+    ],
+    "summary": "Metadata Message",
+    "operationId": "metadata_message_api_projects__project_id__metadata_messages_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MetadataMessageIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MessageOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/feedback": {
+   "post": {
+    "tags": [
+     "account"
+    ],
+    "summary": "Feedback",
+    "operationId": "feedback_api_projects__project_id__feedback_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FeedbackIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/search": {
+   "get": {
+    "tags": [
+     "account"
+    ],
+    "summary": "Search",
+    "description": "Full-text search only. Embedding search runs in the agent worker, never in the API.",
+    "operationId": "search_api_projects__project_id__search_get",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     },
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 200,
+       "title": "Q"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/SearchHit"
+         },
+         "title": "Response Search Api Projects  Project Id  Search Get"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/memories": {
+   "get": {
+    "tags": [
+     "account"
+    ],
+    "summary": "List Memories",
+    "operationId": "list_memories_api_memories_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/MemoryOut"
+         },
+         "type": "array",
+         "title": "Response List Memories Api Memories Get"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/memories/{memory_id}": {
+   "patch": {
+    "tags": [
+     "account"
+    ],
+    "summary": "Patch Memory",
+    "operationId": "patch_memory_api_memories__memory_id__patch",
+    "parameters": [
+     {
+      "name": "memory_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Memory Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MemoryPatchIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MemoryOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "account"
+    ],
+    "summary": "Delete Memory",
+    "operationId": "delete_memory_api_memories__memory_id__delete",
+    "parameters": [
+     {
+      "name": "memory_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Memory Id"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/me": {
+   "get": {
+    "tags": [
+     "account"
+    ],
+    "summary": "Get Me",
+    "operationId": "get_me_api_me_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MeOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "account"
+    ],
+    "summary": "Patch Me",
+    "operationId": "patch_me_api_me_patch",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MePatchIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MeOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/settings": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Get Settings",
+    "operationId": "get_settings_api_admin_settings_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminSettingsOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Patch Settings",
+    "operationId": "patch_settings_api_admin_settings_patch",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AdminSettingsPatchIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminSettingsOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/users": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "List Users",
+    "operationId": "list_users_api_admin_users_get",
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Start"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "End"
+      }
+     },
+     {
+      "name": "q",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 200
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Q"
+      }
+     },
+     {
+      "name": "cursor",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Cursor"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminUserPage"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/admin/users/{user_id}": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Get User",
+    "operationId": "get_user_api_admin_users__user_id__get",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "User Id"
+      }
+     },
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Start"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "End"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminUserDetail"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Patch User",
+    "operationId": "patch_user_api_admin_users__user_id__patch",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "User Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AdminUserPatchIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminUserDetail"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/admin/usage": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Usage",
+    "operationId": "usage_api_admin_usage_get",
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Start"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "End"
+      }
+     },
+     {
+      "name": "group_by",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "user",
+        "day",
+        "job_kind"
+       ],
+       "type": "string",
+       "default": "user",
+       "title": "Group By"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminUsageOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AdminSettingsOut": {
+    "properties": {
+     "limits": {
+      "items": {
+       "$ref": "#/components/schemas/LimitSpecOut"
+      },
+      "type": "array",
+      "title": "Limits"
+     }
+    },
+    "type": "object",
+    "required": [
+     "limits"
+    ],
+    "title": "AdminSettingsOut"
+   },
+   "AdminSettingsPatchIn": {
+    "properties": {
+     "values": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Values"
+     }
+    },
+    "type": "object",
+    "required": [
+     "values"
+    ],
+    "title": "AdminSettingsPatchIn"
+   },
+   "AdminUsageOut": {
+    "properties": {
+     "total": {
+      "$ref": "#/components/schemas/TokenTotals"
+     },
+     "groups": {
+      "items": {
+       "$ref": "#/components/schemas/UsageGroup"
+      },
+      "type": "array",
+      "title": "Groups"
+     }
+    },
+    "type": "object",
+    "required": [
+     "total",
+     "groups"
+    ],
+    "title": "AdminUsageOut"
+   },
+   "AdminUserDetail": {
+    "properties": {
+     "user": {
+      "$ref": "#/components/schemas/AdminUserRow"
+     },
+     "limits": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "propertyNames": {
+       "$ref": "#/components/schemas/LimitKey"
+      },
+      "type": "object",
+      "title": "Limits"
+     },
+     "overrides": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "propertyNames": {
+       "$ref": "#/components/schemas/LimitKey"
+      },
+      "type": "object",
+      "title": "Overrides"
+     },
+     "by_project": {
+      "items": {
+       "$ref": "#/components/schemas/UsageGroup"
+      },
+      "type": "array",
+      "title": "By Project"
+     },
+     "by_kind": {
+      "items": {
+       "$ref": "#/components/schemas/UsageGroup"
+      },
+      "type": "array",
+      "title": "By Kind"
+     },
+     "by_day": {
+      "items": {
+       "$ref": "#/components/schemas/UsageGroup"
+      },
+      "type": "array",
+      "title": "By Day"
+     }
+    },
+    "type": "object",
+    "required": [
+     "user",
+     "limits",
+     "overrides",
+     "by_project",
+     "by_kind",
+     "by_day"
+    ],
+    "title": "AdminUserDetail"
+   },
+   "AdminUserPage": {
+    "properties": {
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/AdminUserRow"
+      },
+      "type": "array",
+      "title": "Items"
+     },
+     "next_cursor": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Next Cursor"
+     }
+    },
+    "type": "object",
+    "required": [
+     "items",
+     "next_cursor"
+    ],
+    "title": "AdminUserPage"
+   },
+   "AdminUserPatchIn": {
+    "properties": {
+     "role": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/Role"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "overrides": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "anyOf": [
+          {
+           "type": "integer"
+          },
+          {
+           "type": "null"
+          }
+         ]
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Overrides"
+     }
+    },
+    "type": "object",
+    "title": "AdminUserPatchIn"
+   },
+   "AdminUserRow": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "email": {
+      "type": "string",
+      "title": "Email"
+     },
+     "role": {
+      "$ref": "#/components/schemas/Role"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "active_videos": {
+      "type": "integer",
+      "title": "Active Videos"
+     },
+     "storage_bytes": {
+      "type": "integer",
+      "title": "Storage Bytes"
+     },
+     "tokens": {
+      "$ref": "#/components/schemas/TokenTotals"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "email",
+     "role",
+     "created_at",
+     "active_videos",
+     "storage_bytes",
+     "tokens"
+    ],
+    "title": "AdminUserRow"
+   },
+   "Assets": {
+    "properties": {
+     "proxy_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Proxy Url"
+     },
+     "source_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Source Url"
+     },
+     "waveform_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Waveform Url"
+     },
+     "transcript_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Transcript Url"
+     },
+     "srt_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Srt Url"
+     },
+     "thumbnails": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/Thumbnails"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "type": "object",
+    "title": "Assets"
+   },
+   "Candidate": {
+    "properties": {
+     "src_start": {
+      "type": "number",
+      "title": "Src Start"
+     },
+     "src_end": {
+      "type": "number",
+      "title": "Src End"
+     },
+     "score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Score"
+     },
+     "reason": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reason"
+     }
+    },
+    "type": "object",
+    "required": [
+     "src_start",
+     "src_end"
+    ],
+    "title": "Candidate"
+   },
+   "Captions": {
+    "properties": {
+     "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "default": true
+     },
+     "style": {
+      "type": "string",
+      "title": "Style",
+      "default": "bold-center"
+     },
+     "edits": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Edits"
+     }
+    },
+    "type": "object",
+    "title": "Captions"
+   },
+   "CreateProjectIn": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title"
+     },
+     "filename": {
+      "type": "string",
+      "maxLength": 255,
+      "minLength": 1,
+      "title": "Filename"
+     },
+     "size": {
+      "type": "integer",
+      "exclusiveMinimum": 0.0,
+      "title": "Size"
+     },
+     "content_type": {
+      "type": "string",
+      "title": "Content Type"
+     },
+     "duration_s": {
+      "anyOf": [
+       {
+        "type": "number",
+        "exclusiveMinimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Duration S"
+     },
+     "srt_text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 2000000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Srt Text"
+     }
+    },
+    "type": "object",
+    "required": [
+     "title",
+     "filename",
+     "size",
+     "content_type"
+    ],
+    "title": "CreateProjectIn"
+   },
+   "CreateProjectOut": {
+    "properties": {
+     "project_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Project Id"
+     },
+     "upload_id": {
+      "type": "string",
+      "title": "Upload Id"
+     },
+     "part_size_mb": {
+      "type": "integer",
+      "title": "Part Size Mb"
+     },
+     "part_count": {
+      "type": "integer",
+      "title": "Part Count"
+     }
+    },
+    "type": "object",
+    "required": [
+     "project_id",
+     "upload_id",
+     "part_size_mb",
+     "part_count"
+    ],
+    "title": "CreateProjectOut"
+   },
+   "CropKeyframe": {
+    "properties": {
+     "t": {
+      "type": "number",
+      "title": "T"
+     },
+     "cx": {
+      "type": "number",
+      "title": "Cx"
+     },
+     "cy": {
+      "type": "number",
+      "title": "Cy"
+     },
+     "zoom": {
+      "type": "number",
+      "title": "Zoom",
+      "default": 1.0
+     }
+    },
+    "type": "object",
+    "required": [
+     "t",
+     "cx",
+     "cy"
+    ],
+    "title": "CropKeyframe",
+    "description": "Crop window centre in source time. cx and cy are fractions of the source frame."
+   },
+   "EDL": {
+    "properties": {
+     "version": {
+      "type": "integer",
+      "title": "Version",
+      "default": 0
+     },
+     "source": {
+      "$ref": "#/components/schemas/Source"
+     },
+     "output": {
+      "$ref": "#/components/schemas/Output"
+     },
+     "segments": {
+      "items": {
+       "$ref": "#/components/schemas/Segment"
+      },
+      "type": "array",
+      "title": "Segments"
+     },
+     "transitions": {
+      "$ref": "#/components/schemas/Transitions"
+     },
+     "audio_fade_ms": {
+      "type": "integer",
+      "title": "Audio Fade Ms",
+      "default": 80
+     },
+     "captions": {
+      "$ref": "#/components/schemas/Captions"
+     },
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     }
+    },
+    "type": "object",
+    "required": [
+     "source",
+     "segments"
+    ],
+    "title": "EDL"
+   },
+   "EdlOut": {
+    "properties": {
+     "version": {
+      "type": "integer",
+      "title": "Version"
+     },
+     "edl": {
+      "$ref": "#/components/schemas/EDL"
+     }
+    },
+    "type": "object",
+    "required": [
+     "version",
+     "edl"
+    ],
+    "title": "EdlOut"
+   },
+   "EdlVersionOut": {
+    "properties": {
+     "version": {
+      "type": "integer",
+      "title": "Version"
+     },
+     "author": {
+      "type": "string",
+      "title": "Author"
+     },
+     "parent_version": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Parent Version"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "segment_count": {
+      "type": "integer",
+      "title": "Segment Count"
+     },
+     "output_duration_s": {
+      "type": "number",
+      "title": "Output Duration S"
+     },
+     "short_id": {
+      "type": "string",
+      "title": "Short Id"
+     },
+     "short_title": {
+      "type": "string",
+      "title": "Short Title"
+     },
+     "aspect": {
+      "type": "string",
+      "title": "Aspect"
+     },
+     "segments": {
+      "items": {
+       "$ref": "#/components/schemas/SegmentBrief"
+      },
+      "type": "array",
+      "title": "Segments"
+     }
+    },
+    "type": "object",
+    "required": [
+     "version",
+     "author",
+     "parent_version",
+     "created_at",
+     "segment_count",
+     "output_duration_s",
+     "short_id",
+     "short_title",
+     "aspect",
+     "segments"
+    ],
+    "title": "EdlVersionOut"
+   },
+   "ErrorBody": {
+    "properties": {
+     "code": {
+      "type": "string",
+      "title": "Code"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     },
+     "details": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Details",
+      "default": {}
+     }
+    },
+    "type": "object",
+    "required": [
+     "code",
+     "message"
+    ],
+    "title": "ErrorBody"
+   },
+   "ErrorEnvelope": {
+    "properties": {
+     "error": {
+      "$ref": "#/components/schemas/ErrorBody"
+     }
+    },
+    "type": "object",
+    "required": [
+     "error"
+    ],
+    "title": "ErrorEnvelope"
+   },
+   "ExportBrief": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "status",
+     "created_at"
+    ],
+    "title": "ExportBrief"
+   },
+   "ExportIn": {
+    "properties": {
+     "edl_version": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Edl Version"
+     }
+    },
+    "type": "object",
+    "title": "ExportIn"
+   },
+   "ExportOut": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "project_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Project Id"
+     },
+     "edl_version": {
+      "type": "integer",
+      "title": "Edl Version"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "percent": {
+      "type": "integer",
+      "title": "Percent"
+     },
+     "stage": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stage"
+     },
+     "error_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error Code"
+     },
+     "download_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Download Url"
+     },
+     "srt_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Srt Url"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "project_id",
+     "edl_version",
+     "status",
+     "percent",
+     "stage",
+     "error_code",
+     "download_url",
+     "srt_url",
+     "created_at"
+    ],
+    "title": "ExportOut"
+   },
+   "FeedbackIn": {
+    "properties": {
+     "target_kind": {
+      "type": "string",
+      "enum": [
+       "plan",
+       "idea",
+       "metadata",
+       "answer"
+      ],
+      "title": "Target Kind"
+     },
+     "target_ref": {
+      "type": "string",
+      "maxLength": 128,
+      "title": "Target Ref"
+     },
+     "signal": {
+      "type": "string",
+      "enum": [
+       "up",
+       "down"
+      ],
+      "title": "Signal"
+     },
+     "reason": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 500
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reason"
+     }
+    },
+    "type": "object",
+    "required": [
+     "target_kind",
+     "target_ref",
+     "signal"
+    ],
+    "title": "FeedbackIn"
+   },
+   "Framing": {
+    "type": "string",
+    "enum": [
+     "crop",
+     "fit"
+    ],
+    "title": "Framing"
+   },
+   "JobOut": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "stage": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stage"
+     },
+     "percent": {
+      "type": "integer",
+      "title": "Percent"
+     },
+     "error_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error Code"
+     },
+     "error_detail": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error Detail"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "status",
+     "stage",
+     "percent",
+     "error_code",
+     "created_at"
+    ],
+    "title": "JobOut"
+   },
+   "LimitKey": {
+    "type": "string",
+    "enum": [
+     "max_active_videos",
+     "max_file_size_mb",
+     "max_storage_mb",
+     "max_video_duration_s"
+    ],
+    "title": "LimitKey"
+   },
+   "LimitSpecOut": {
+    "properties": {
+     "key": {
+      "$ref": "#/components/schemas/LimitKey"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "unit": {
+      "type": "string",
+      "title": "Unit"
+     },
+     "default": {
+      "type": "integer",
+      "title": "Default"
+     },
+     "minimum": {
+      "type": "integer",
+      "title": "Minimum"
+     },
+     "maximum": {
+      "type": "integer",
+      "title": "Maximum"
+     },
+     "value": {
+      "type": "integer",
+      "title": "Value"
+     }
+    },
+    "type": "object",
+    "required": [
+     "key",
+     "label",
+     "unit",
+     "default",
+     "minimum",
+     "maximum",
+     "value"
+    ],
+    "title": "LimitSpecOut"
+   },
+   "MeOut": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "email": {
+      "type": "string",
+      "title": "Email"
+     },
+     "role": {
+      "$ref": "#/components/schemas/Role"
+     },
+     "learn_enabled": {
+      "type": "boolean",
+      "title": "Learn Enabled"
+     },
+     "limits": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "propertyNames": {
+       "$ref": "#/components/schemas/LimitKey"
+      },
+      "type": "object",
+      "title": "Limits"
+     },
+     "usage": {
+      "$ref": "#/components/schemas/Usage"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "email",
+     "role",
+     "learn_enabled",
+     "limits",
+     "usage"
+    ],
+    "title": "MeOut"
+   },
+   "MePatchIn": {
+    "properties": {
+     "learn_enabled": {
+      "type": "boolean",
+      "title": "Learn Enabled"
+     }
+    },
+    "type": "object",
+    "required": [
+     "learn_enabled"
+    ],
+    "title": "MePatchIn"
+   },
+   "MemoryOut": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "evidence_count": {
+      "type": "integer",
+      "title": "Evidence Count"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "text",
+     "status",
+     "evidence_count",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "MemoryOut"
+   },
+   "MemoryPatchIn": {
+    "properties": {
+     "text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 300,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Text"
+     },
+     "status": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "active",
+         "disabled"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Status"
+     }
+    },
+    "type": "object",
+    "title": "MemoryPatchIn"
+   },
+   "MessageOut": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "thread": {
+      "type": "string",
+      "title": "Thread"
+     },
+     "role": {
+      "type": "string",
+      "title": "Role"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind"
+     },
+     "content": {
+      "type": "string",
+      "title": "Content"
+     },
+     "payload": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Payload"
+     },
+     "edl_version": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Edl Version"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "thread",
+     "role",
+     "kind",
+     "content",
+     "payload",
+     "edl_version",
+     "created_at"
+    ],
+    "title": "MessageOut"
+   },
+   "Meta": {
+    "properties": {
+     "candidates": {
+      "items": {
+       "$ref": "#/components/schemas/Candidate"
+      },
+      "type": "array",
+      "title": "Candidates"
+     },
+     "run": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/RunInfo"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "additionalProperties": true,
+    "type": "object",
+    "title": "Meta"
+   },
+   "MetadataMessageIn": {
+    "properties": {
+     "content": {
+      "type": "string",
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Content"
+     }
+    },
+    "type": "object",
+    "required": [
+     "content"
+    ],
+    "title": "MetadataMessageIn"
+   },
+   "MetadataOut": {
+    "properties": {
+     "current": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/MetadataSetOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "versions": {
+      "items": {
+       "$ref": "#/components/schemas/MetadataSetOut"
+      },
+      "type": "array",
+      "title": "Versions"
+     },
+     "messages": {
+      "items": {
+       "$ref": "#/components/schemas/MessageOut"
+      },
+      "type": "array",
+      "title": "Messages"
+     },
+     "active_job": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/JobOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "stale": {
+      "type": "boolean",
+      "title": "Stale"
+     }
+    },
+    "type": "object",
+    "required": [
+     "current",
+     "versions",
+     "messages",
+     "active_job",
+     "stale"
+    ],
+    "title": "MetadataOut"
+   },
+   "MetadataPatchIn": {
+    "properties": {
+     "fields": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Fields"
+     },
+     "platform": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Platform"
+     }
+    },
+    "type": "object",
+    "required": [
+     "fields"
+    ],
+    "title": "MetadataPatchIn"
+   },
+   "MetadataSetOut": {
+    "properties": {
+     "version": {
+      "type": "integer",
+      "title": "Version"
+     },
+     "edl_version": {
+      "type": "integer",
+      "title": "Edl Version"
+     },
+     "platform": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Platform"
+     },
+     "language": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Language"
+     },
+     "tone": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tone"
+     },
+     "fields": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Fields"
+     },
+     "author": {
+      "type": "string",
+      "title": "Author"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "version",
+     "edl_version",
+     "platform",
+     "language",
+     "tone",
+     "fields",
+     "author",
+     "created_at"
+    ],
+    "title": "MetadataSetOut"
+   },
+   "MetadataStartIn": {
+    "properties": {
+     "platform": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Platform"
+     },
+     "language": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Language"
+     },
+     "tone": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "neutral",
+         "casual",
+         "punchy",
+         "professional"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tone"
+     },
+     "notes": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 1000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Notes"
+     }
+    },
+    "type": "object",
+    "title": "MetadataStartIn"
+   },
+   "Output": {
+    "properties": {
+     "aspect": {
+      "type": "string",
+      "title": "Aspect",
+      "default": "9:16"
+     },
+     "width": {
+      "type": "integer",
+      "title": "Width",
+      "default": 1080
+     },
+     "height": {
+      "type": "integer",
+      "title": "Height",
+      "default": 1920
+     },
+     "fps": {
+      "type": "integer",
+      "title": "Fps",
+      "default": 30
+     },
+     "framing": {
+      "$ref": "#/components/schemas/Framing",
+      "default": "crop"
+     },
+     "target_duration_s": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Target Duration S"
+     }
+    },
+    "type": "object",
+    "title": "Output"
+   },
+   "PartUrlsIn": {
+    "properties": {
+     "part_numbers": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Part Numbers"
+     }
+    },
+    "type": "object",
+    "required": [
+     "part_numbers"
+    ],
+    "title": "PartUrlsIn"
+   },
+   "PartUrlsOut": {
+    "properties": {
+     "urls": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Urls"
+     }
+    },
+    "type": "object",
+    "required": [
+     "urls"
+    ],
+    "title": "PartUrlsOut"
+   },
+   "ProjectDetail": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "state": {
+      "type": "string",
+      "enum": [
+       "uploading",
+       "waiting",
+       "processing",
+       "finding_ideas",
+       "pick_idea",
+       "planning",
+       "needs_answer",
+       "exporting",
+       "ready",
+       "exported",
+       "failed"
+      ],
+      "title": "State"
+     },
+     "duration_s": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Duration S"
+     },
+     "width": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Width"
+     },
+     "height": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Height"
+     },
+     "fps": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Fps"
+     },
+     "current_version": {
+      "type": "integer",
+      "title": "Current Version"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+     },
+     "active_job": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/JobOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "failed_job": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/JobOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "last_export": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ExportBrief"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "messages": {
+      "items": {
+       "$ref": "#/components/schemas/MessageOut"
+      },
+      "type": "array",
+      "title": "Messages"
+     },
+     "edl": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/EDL"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "assets": {
+      "$ref": "#/components/schemas/Assets"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "title",
+     "status",
+     "state",
+     "duration_s",
+     "width",
+     "height",
+     "fps",
+     "current_version",
+     "created_at",
+     "updated_at",
+     "active_job",
+     "failed_job",
+     "last_export",
+     "messages",
+     "edl",
+     "assets"
+    ],
+    "title": "ProjectDetail"
+   },
+   "ProjectListItem": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "state": {
+      "type": "string",
+      "enum": [
+       "uploading",
+       "waiting",
+       "processing",
+       "finding_ideas",
+       "pick_idea",
+       "planning",
+       "needs_answer",
+       "exporting",
+       "ready",
+       "exported",
+       "failed"
+      ],
+      "title": "State"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+     },
+     "duration_s": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Duration S"
+     },
+     "thumbnail_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Thumbnail Url"
+     },
+     "active_job": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/JobOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "failed_job": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/JobOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "last_export": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ExportBrief"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "title",
+     "status",
+     "state",
+     "created_at",
+     "updated_at",
+     "duration_s",
+     "thumbnail_url",
+     "active_job",
+     "failed_job",
+     "last_export"
+    ],
+    "title": "ProjectListItem"
+   },
+   "ProjectPage": {
+    "properties": {
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/ProjectListItem"
+      },
+      "type": "array",
+      "title": "Items"
+     },
+     "next_cursor": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Next Cursor"
+     }
+    },
+    "type": "object",
+    "required": [
+     "items",
+     "next_cursor"
+    ],
+    "title": "ProjectPage"
+   },
+   "RenameIn": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title"
+     }
+    },
+    "type": "object",
+    "required": [
+     "title"
+    ],
+    "title": "RenameIn"
+   },
+   "Role": {
+    "type": "string",
+    "enum": [
+     "admin",
+     "editor"
+    ],
+    "title": "Role"
+   },
+   "RunInfo": {
+    "properties": {
+     "prompt_version": {
+      "type": "string",
+      "title": "Prompt Version"
+     },
+     "model": {
+      "type": "string",
+      "title": "Model"
+     }
+    },
+    "type": "object",
+    "required": [
+     "prompt_version",
+     "model"
+    ],
+    "title": "RunInfo"
+   },
+   "SearchHit": {
+    "properties": {
+     "cue_from": {
+      "type": "string",
+      "title": "Cue From"
+     },
+     "cue_to": {
+      "type": "string",
+      "title": "Cue To"
+     },
+     "start_s": {
+      "type": "number",
+      "title": "Start S"
+     },
+     "end_s": {
+      "type": "number",
+      "title": "End S"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     }
+    },
+    "type": "object",
+    "required": [
+     "cue_from",
+     "cue_to",
+     "start_s",
+     "end_s",
+     "text"
+    ],
+    "title": "SearchHit"
+   },
+   "Segment": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^s[0-9]+$",
+      "title": "Id"
+     },
+     "src_start": {
+      "type": "number",
+      "title": "Src Start"
+     },
+     "src_end": {
+      "type": "number",
+      "title": "Src End"
+     },
+     "reason": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reason"
+     },
+     "score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Score"
+     },
+     "crop": {
+      "items": {
+       "$ref": "#/components/schemas/CropKeyframe"
+      },
+      "type": "array",
+      "title": "Crop"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "src_start",
+     "src_end"
+    ],
+    "title": "Segment"
+   },
+   "SegmentBrief": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "src_start": {
+      "type": "number",
+      "title": "Src Start"
+     },
+     "src_end": {
+      "type": "number",
+      "title": "Src End"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "src_start",
+     "src_end"
+    ],
+    "title": "SegmentBrief"
+   },
+   "SendMessageIn": {
+    "properties": {
+     "content": {
+      "type": "string",
+      "maxLength": 4000,
+      "title": "Content",
+      "default": ""
+     },
+     "suggestion_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Suggestion Id"
+     },
+     "choice": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 500
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Choice"
+     }
+    },
+    "type": "object",
+    "title": "SendMessageIn"
+   },
+   "SendMessageOut": {
+    "properties": {
+     "message": {
+      "$ref": "#/components/schemas/MessageOut"
+     },
+     "job": {
+      "$ref": "#/components/schemas/JobOut"
+     }
+    },
+    "type": "object",
+    "required": [
+     "message",
+     "job"
+    ],
+    "title": "SendMessageOut"
+   },
+   "Source": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "title": "Key"
+     },
+     "duration_s": {
+      "type": "number",
+      "title": "Duration S"
+     },
+     "width": {
+      "type": "integer",
+      "title": "Width"
+     },
+     "height": {
+      "type": "integer",
+      "title": "Height"
+     },
+     "fps": {
+      "type": "number",
+      "title": "Fps"
+     }
+    },
+    "type": "object",
+    "required": [
+     "key",
+     "duration_s",
+     "width",
+     "height",
+     "fps"
+    ],
+    "title": "Source"
+   },
+   "SpeakerBox": {
+    "properties": {
+     "track_id": {
+      "type": "integer",
+      "title": "Track Id"
+     },
+     "x1": {
+      "type": "number",
+      "title": "X1"
+     },
+     "y1": {
+      "type": "number",
+      "title": "Y1"
+     },
+     "x2": {
+      "type": "number",
+      "title": "X2"
+     },
+     "y2": {
+      "type": "number",
+      "title": "Y2"
+     }
+    },
+    "type": "object",
+    "required": [
+     "track_id",
+     "x1",
+     "y1",
+     "x2",
+     "y2"
+    ],
+    "title": "SpeakerBox"
+   },
+   "SpeakerFrame": {
+    "properties": {
+     "t": {
+      "type": "number",
+      "title": "T"
+     },
+     "boxes": {
+      "items": {
+       "$ref": "#/components/schemas/SpeakerBox"
+      },
+      "type": "array",
+      "title": "Boxes"
+     }
+    },
+    "type": "object",
+    "required": [
+     "t",
+     "boxes"
+    ],
+    "title": "SpeakerFrame"
+   },
+   "SpeakerOut": {
+    "properties": {
+     "available": {
+      "type": "boolean",
+      "title": "Available"
+     },
+     "fps": {
+      "type": "number",
+      "title": "Fps",
+      "default": 0
+     },
+     "main_track_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Main Track Id"
+     },
+     "coverage": {
+      "type": "number",
+      "title": "Coverage",
+      "default": 0
+     },
+     "people": {
+      "type": "integer",
+      "title": "People",
+      "default": 0
+     },
+     "frames": {
+      "items": {
+       "$ref": "#/components/schemas/SpeakerFrame"
+      },
+      "type": "array",
+      "title": "Frames",
+      "default": []
+     },
+     "analysed": {
+      "type": "boolean",
+      "title": "Analysed",
+      "default": false
+     },
+     "turns": {
+      "items": {
+       "$ref": "#/components/schemas/SpeakerTurnOut"
+      },
+      "type": "array",
+      "title": "Turns",
+      "default": []
+     },
+     "cut_min_s": {
+      "type": "number",
+      "title": "Cut Min S",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "available"
+    ],
+    "title": "SpeakerOut",
+    "description": "YOLO person boxes (fractions of the source frame), the main person the crop follows when nobody is\ntalking, and who talks when (the crop cuts to them)."
+   },
+   "SpeakerTurnOut": {
+    "properties": {
+     "start": {
+      "type": "number",
+      "title": "Start"
+     },
+     "end": {
+      "type": "number",
+      "title": "End"
+     },
+     "track_id": {
+      "type": "integer",
+      "title": "Track Id"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "confidence": {
+      "type": "number",
+      "title": "Confidence"
+     }
+    },
+    "type": "object",
+    "required": [
+     "start",
+     "end",
+     "track_id",
+     "label",
+     "confidence"
+    ],
+    "title": "SpeakerTurnOut",
+    "description": "A stretch of source time in which one person is talking (lip movement matched to the sound)."
+   },
+   "SpriteSheet": {
+    "properties": {
+     "url": {
+      "type": "string",
+      "title": "Url"
+     },
+     "start_s": {
+      "type": "number",
+      "title": "Start S"
+     },
+     "count": {
+      "type": "integer",
+      "title": "Count"
+     }
+    },
+    "type": "object",
+    "required": [
+     "url",
+     "start_s",
+     "count"
+    ],
+    "title": "SpriteSheet"
+   },
+   "Thumbnails": {
+    "properties": {
+     "interval_s": {
+      "type": "number",
+      "title": "Interval S"
+     },
+     "tile_width": {
+      "type": "integer",
+      "title": "Tile Width"
+     },
+     "tile_height": {
+      "type": "integer",
+      "title": "Tile Height"
+     },
+     "columns": {
+      "type": "integer",
+      "title": "Columns"
+     },
+     "rows": {
+      "type": "integer",
+      "title": "Rows"
+     },
+     "sheets": {
+      "items": {
+       "$ref": "#/components/schemas/SpriteSheet"
+      },
+      "type": "array",
+      "title": "Sheets"
+     }
+    },
+    "type": "object",
+    "required": [
+     "interval_s",
+     "tile_width",
+     "tile_height",
+     "columns",
+     "rows",
+     "sheets"
+    ],
+    "title": "Thumbnails"
+   },
+   "TokenTotals": {
+    "properties": {
+     "input_tokens": {
+      "type": "integer",
+      "title": "Input Tokens",
+      "default": 0
+     },
+     "output_tokens": {
+      "type": "integer",
+      "title": "Output Tokens",
+      "default": 0
+     },
+     "cache_read_tokens": {
+      "type": "integer",
+      "title": "Cache Read Tokens",
+      "default": 0
+     },
+     "cache_write_tokens": {
+      "type": "integer",
+      "title": "Cache Write Tokens",
+      "default": 0
+     },
+     "calls": {
+      "type": "integer",
+      "title": "Calls",
+      "default": 0
+     },
+     "cost_usd": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Cost Usd"
+     },
+     "unpriced_calls": {
+      "type": "integer",
+      "title": "Unpriced Calls",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "title": "TokenTotals"
+   },
+   "Transition": {
+    "properties": {
+     "type": {
+      "$ref": "#/components/schemas/TransitionType",
+      "default": "fade"
+     },
+     "duration_s": {
+      "type": "number",
+      "title": "Duration S",
+      "default": 0.4
+     }
+    },
+    "type": "object",
+    "title": "Transition"
+   },
+   "TransitionOverride": {
+    "properties": {
+     "type": {
+      "$ref": "#/components/schemas/TransitionType",
+      "default": "fade"
+     },
+     "duration_s": {
+      "type": "number",
+      "title": "Duration S",
+      "default": 0.4
+     },
+     "from": {
+      "type": "string",
+      "title": "From"
+     },
+     "to": {
+      "type": "string",
+      "title": "To"
+     }
+    },
+    "type": "object",
+    "required": [
+     "from",
+     "to"
+    ],
+    "title": "TransitionOverride"
+   },
+   "TransitionType": {
+    "type": "string",
+    "enum": [
+     "cut",
+     "fade",
+     "dip_black",
+     "dip_white",
+     "dissolve",
+     "slide_left",
+     "slide_right",
+     "wipe_left",
+     "wipe_right",
+     "circle_open",
+     "zoom_in",
+     "pixelize"
+    ],
+    "title": "TransitionType"
+   },
+   "Transitions": {
+    "properties": {
+     "default": {
+      "$ref": "#/components/schemas/Transition"
+     },
+     "overrides": {
+      "items": {
+       "$ref": "#/components/schemas/TransitionOverride"
+      },
+      "type": "array",
+      "title": "Overrides"
+     }
+    },
+    "type": "object",
+    "title": "Transitions"
+   },
+   "Usage": {
+    "properties": {
+     "active_videos": {
+      "type": "integer",
+      "title": "Active Videos"
+     },
+     "storage_bytes": {
+      "type": "integer",
+      "title": "Storage Bytes"
+     }
+    },
+    "type": "object",
+    "required": [
+     "active_videos",
+     "storage_bytes"
+    ],
+    "title": "Usage"
+   },
+   "UsageGroup": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "title": "Key"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "tokens": {
+      "$ref": "#/components/schemas/TokenTotals"
+     }
+    },
+    "type": "object",
+    "required": [
+     "key",
+     "label",
+     "tokens"
+    ],
+    "title": "UsageGroup"
+   }
+  }
+ }
+}

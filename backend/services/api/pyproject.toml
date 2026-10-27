@@ -1,0 +1,22 @@
+[project]
+name = "clipora-api"
+version = "0.1.0"
+description = "FastAPI service"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "clipora-core",
+  "clipora-db",
+  "clipora-jobqueue",
+  "clipora-storage",
+  "fastapi>=0.162,<0.163",
+  "uvicorn[standard]>=0.54,<0.55",
+  "pyjwt[crypto]>=2.15,<3",
+  "pydantic-settings>=2.16,<3",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "api"

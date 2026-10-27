@@ -1,0 +1,15 @@
+[project]
+name = "clipora-media"
+version = "0.1.0"
+description = "ffprobe and ffmpeg wrappers, sprite and waveform helpers"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "clipora-core",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "media"

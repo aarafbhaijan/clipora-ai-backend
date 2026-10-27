@@ -1,0 +1,15 @@
+[project]
+name = "clipora-core"
+version = "0.1.0"
+description = "Pydantic models: EDL, enums, errors, time mapping, crop math, transitions, settings, pricing"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "pydantic>=2.14,<3",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "core"

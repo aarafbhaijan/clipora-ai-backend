@@ -1,0 +1,47 @@
+[
+  {
+    "name": "three segments, fade default, cut override",
+    "edl": {
+      "version": 1,
+      "source": {"key": "k", "duration_s": 600.0, "width": 1920, "height": 1080, "fps": 30},
+      "output": {"aspect": "9:16", "width": 1080, "height": 1920},
+      "segments": [
+        {"id": "s1", "src_start": 10.0, "src_end": 20.0},
+        {"id": "s2", "src_start": 30.0, "src_end": 40.0},
+        {"id": "s3", "src_start": 50.0, "src_end": 51.5}
+      ],
+      "transitions": {
+        "default": {"type": "fade", "duration_s": 0.5},
+        "overrides": [{"from": "s2", "to": "s3", "type": "cut", "duration_s": 0.4}]
+      }
+    },
+    "output_duration": 21.0,
+    "t_out_starts": [0.0, 9.5, 19.5],
+    "src_to_out": [
+      {"src": 10.0, "t_out": 0.0},
+      {"src": 15.0, "t_out": 5.0},
+      {"src": 35.0, "t_out": 14.5},
+      {"src": 51.0, "t_out": 20.5},
+      {"src": 25.0, "t_out": null}
+    ],
+    "out_to_src": [
+      {"t_out": 0.0, "hits": [[0, 10.0]]},
+      {"t_out": 9.7, "hits": [[0, 19.7], [1, 30.2]]},
+      {"t_out": 19.5, "hits": [[2, 50.0]]},
+      {"t_out": 21.0, "hits": []}
+    ]
+  },
+  {
+    "name": "single segment",
+    "edl": {
+      "version": 1,
+      "source": {"key": "k", "duration_s": 100.0, "width": 1080, "height": 1920, "fps": 30},
+      "output": {"aspect": "16:9", "width": 1920, "height": 1080},
+      "segments": [{"id": "s1", "src_start": 5.0, "src_end": 12.0}]
+    },
+    "output_duration": 7.0,
+    "t_out_starts": [0.0],
+    "src_to_out": [{"src": 6.0, "t_out": 1.0}, {"src": 12.0, "t_out": null}],
+    "out_to_src": [{"t_out": 6.5, "hits": [[0, 11.5]]}]
+  }
+]

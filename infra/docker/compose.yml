@@ -1,0 +1,35 @@
+# Local development: Postgres with pgvector (database + job queue + LangGraph checkpoints) and RustFS as S3.
+# Run from the repo root: docker compose -f infra/docker/compose.yml up -d (or infra/scripts/dev.sh up)
+# Then create the bucket once: uv run --no-sync python -m storage.local_setup
+name: clipora
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: clipora
+      POSTGRES_PASSWORD: clipora
+      POSTGRES_DB: clipora
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clipora"]
+      interval: 2s
+      retries: 30
+
+  s3:
+    # RustFS: open-source, S3-compatible, keeps data on the volume across restarts.
+    # (LocalStack's free edition loses every object on restart; MinIO no longer publishes images.)
+    image: rustfs/rustfs:1.0.2
+    environment:
+      RUSTFS_ACCESS_KEY: clipora
+      RUSTFS_SECRET_KEY: clipora-secret
+      RUSTFS_VOLUMES: /data
+      RUSTFS_ADDRESS: ":9000"
+      RUSTFS_CONSOLE_ENABLE: "false"
+    ports: ["9100:9000"] # host 9100: 9000 is often taken by other local projects
+    volumes: [s3data:/data]
+
+volumes:
+  pgdata:
+  s3data:

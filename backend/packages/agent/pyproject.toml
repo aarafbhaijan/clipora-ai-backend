@@ -1,0 +1,25 @@
+[project]
+name = "clipora-agent"
+version = "0.1.0"
+description = "LangGraph edit graph, suggest, metadata graph, LLM client wrapper"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "clipora-core",
+  "clipora-db",
+  "clipora-rag",
+  "clipora-storage",
+  "langchain>=1.4,<2",
+  "langgraph>=1.2,<2",
+  "langgraph-checkpoint-postgres>=3.2,<4",
+  "langchain-aws>=1.9,<2",
+  "langchain-ollama>=1.1,<2",
+  "psycopg-pool>=3.3,<4",
+  "langchain-openai>=1.1,<2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "agent"

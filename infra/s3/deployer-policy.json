@@ -1,0 +1,34 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CreateAndConfigureCliporaBuckets",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:PutBucketPublicAccessBlock",
+        "s3:PutEncryptionConfiguration",
+        "s3:PutLifecycleConfiguration",
+        "s3:PutBucketCORS",
+        "s3:PutBucketOwnershipControls",
+        "s3:GetBucketLocation",
+        "s3:GetBucketCORS",
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::clipora-*"
+    },
+    {
+      "Sid": "UseCliporaObjects",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:AbortMultipartUpload",
+        "s3:ListMultipartUploadParts",
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": ["arn:aws:s3:::clipora-*", "arn:aws:s3:::clipora-*/*"]
+    }
+  ]
+}

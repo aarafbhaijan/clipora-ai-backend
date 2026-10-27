@@ -1,0 +1,55 @@
+[project]
+name = "clipora"
+version = "0.1.0"
+description = "Clipora AI monorepo (workspace root)"
+requires-python = ">=3.12,<3.14"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["backend/packages/*", "backend/services/api", "backend/services/worker", "backend/services/chat", "database"]
+
+[tool.uv.sources]
+clipora-core = { workspace = true }
+clipora-db = { workspace = true }
+clipora-jobqueue = { workspace = true }
+clipora-storage = { workspace = true }
+clipora-media = { workspace = true }
+clipora-vision = { workspace = true }
+clipora-rag = { workspace = true }
+clipora-agent = { workspace = true }
+clipora-api = { workspace = true }
+clipora-worker = { workspace = true }
+clipora-chat = { workspace = true }
+
+[dependency-groups]
+dev = [
+  "pytest>=9.1,<10",
+  "ruff>=0.17,<0.18",
+  "mypy>=2.4,<3",
+  "httpx>=0.28,<0.29",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["core", "db", "jobqueue", "storage", "media", "vision", "rag", "agent", "api", "worker", "chat"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/versions/*.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["backend/packages", "backend/services/api/tests", "backend/services/worker/tests", "backend/services/chat/tests", "database"]
+addopts = "--import-mode=importlib"

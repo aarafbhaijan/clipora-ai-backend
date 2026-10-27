@@ -1,0 +1,24 @@
+[project]
+name = "clipora-worker"
+version = "0.1.0"
+description = "Queue worker loop and job handlers"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "clipora-core",
+  "clipora-db",
+  "clipora-jobqueue",
+  "clipora-storage",
+  "clipora-media",
+  "clipora-vision",
+  "clipora-rag",
+  "clipora-agent",
+  "faster-whisper>=1.2,<2",
+  "pydantic-settings>=2.16,<3",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "worker"

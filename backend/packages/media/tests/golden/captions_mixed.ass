@@ -1,0 +1,29 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,45,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,0,0,1,4,1,2,65,65,346,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.90,Default,,0,0,0,,Line number 1
+Dialogue: 0,0:00:01.00,0:00:02.40,Default,,0,0,0,,Line number 2
+Dialogue: 0,0:00:02.50,0:00:03.90,Default,,0,0,0,,Edited \{line\}
+Dialogue: 0,0:00:04.00,0:00:05.40,Default,,0,0,0,,Line number 4
+Dialogue: 0,0:00:05.50,0:00:06.50,Default,,0,0,0,,Line number 5
+Dialogue: 0,0:00:06.50,0:00:07.40,Default,,0,0,0,,Line number 13
+Dialogue: 0,0:00:07.50,0:00:08.90,Default,,0,0,0,,Line number 14
+Dialogue: 0,0:00:09.00,0:00:10.40,Default,,0,0,0,,Line number 15
+Dialogue: 0,0:00:10.50,0:00:11.90,Default,,0,0,0,,Line number 16
+Dialogue: 0,0:00:12.00,0:00:13.00,Default,,0,0,0,,Line number 17
+Dialogue: 0,0:00:13.00,0:00:13.40,Default,,0,0,0,,Line number 26
+Dialogue: 0,0:00:13.50,0:00:14.90,Default,,0,0,0,,Line number 27
+Dialogue: 0,0:00:15.00,0:00:16.40,Default,,0,0,0,,Line number 28
+Dialogue: 0,0:00:16.50,0:00:17.90,Default,,0,0,0,,Line number 29
+Dialogue: 0,0:00:18.00,0:00:19.40,Default,,0,0,0,,Line number 30
+Dialogue: 0,0:00:19.50,0:00:20.00,Default,,0,0,0,,Line number 31

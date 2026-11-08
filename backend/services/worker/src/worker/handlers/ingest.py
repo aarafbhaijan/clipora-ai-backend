@@ -83,13 +83,24 @@ def _fail_project(ctx: JobContext, project_id: Any, code: ErrorCode, detail: str
     return JobFailed(code, detail, retryable=False)
 
 
-def _max_duration(user_id: Any) -> int:
+def _limits(user_id: Any) -> dict[LimitKey, int]:
     with session_scope() as tx:
         global_values = {r.key: r.value for r in tx.execute(select(AppSetting)).scalars()}
         overrides = {
             r.key: r.value for r in tx.execute(select(UserLimit).where(UserLimit.user_id == user_id)).scalars()
         }
-    return effective_limits(global_values, overrides)[LimitKey.max_video_duration_s]
+    return effective_limits(global_values, overrides)
+
+
+def _max_duration(user_id: Any) -> int:
+    return _limits(user_id)[LimitKey.max_video_duration_s]
+
+
+# Up to 1080p, H.264 + AAC in MP4 when YouTube offers it (plays everywhere, no re-encode), else the best up to 1080p.
+YOUTUBE_FORMAT = (
+    "bv*[height<=1080][vcodec^=avc1]+ba[ext=m4a]/b[height<=1080][ext=mp4]/bv*[height<=1080]+ba/b[height<=1080]/b"
+)
+IMPORT_TITLE = "YouTube video"  # the API's placeholder title; replaced by the video's own unless renamed
 
 
 @lru_cache(maxsize=1)
@@ -135,6 +146,8 @@ class Ingest:
 
     def run(self) -> Outcome:
         ctx = self.ctx
+        if self.payload.source_url:
+            ctx.run_stage("fetch", self.fetch)
         meta = ctx.run_stage("probe", self.probe)
         self.save_probe(meta)
         ctx.run_stage("transcribe", self.transcribe)
@@ -148,6 +161,85 @@ class Ingest:
         return Outcome.done
 
     # Stages
+
+    def fetch(self) -> dict[str, Any]:
+        """Download the linked YouTube video on the server and store it as the source, like an upload would.
+        Its length is checked against the user's limit before anything is downloaded."""
+        import yt_dlp  # only needed for imports
+
+        url = self.payload.source_url
+        assert url is not None
+        self.ctx.progress("fetch", 0)
+        limits = _limits(self.user_id)
+        base: dict[str, Any] = {"quiet": True, "no_warnings": True, "noplaylist": True, "noprogress": True}
+        # YouTube's player needs a JavaScript runtime (yt-dlp-ejs, from yt-dlp[default]); deno is yt-dlp's
+        # default, so name node or bun when that is what the machine has.
+        runtimes = {name: {} for name in ("deno", "node", "bun") if shutil.which(name)}
+        if runtimes:
+            base["js_runtimes"] = runtimes
+        try:
+            with yt_dlp.YoutubeDL(base) as ydl:
+                info = ydl.extract_info(url, download=False)
+        except yt_dlp.utils.DownloadError as e:
+            raise _fail_project(self.ctx, self.project_id, ErrorCode.import_failed, str(e)[:500]) from e
+        if info.get("is_live") or info.get("live_status") in ("is_live", "is_upcoming"):
+            raise _fail_project(
+                self.ctx, self.project_id, ErrorCode.unsupported_media, "live streams can't be imported"
+            )
+        duration = float(info.get("duration") or 0)
+        if duration > limits[LimitKey.max_video_duration_s]:
+            raise _fail_project(
+                self.ctx, self.project_id, ErrorCode.duration_too_long,
+                f"duration {duration:.0f} s is over the limit of {limits[LimitKey.max_video_duration_s]} s",
+            )  # fmt: skip
+
+        last = [-1]
+
+        def hook(d: dict[str, Any]) -> None:
+            self.ctx.check()  # a cancel stops the download
+            total = d.get("total_bytes") or d.get("total_bytes_estimate")
+            if d.get("status") == "downloading" and total:
+                pct = int(99 * min(1.0, d.get("downloaded_bytes", 0) / total))
+                if pct != last[0]:
+                    last[0] = pct
+                    self.ctx.progress("fetch", pct)
+
+        opts = {
+            **base,
+            "format": YOUTUBE_FORMAT,
+            "merge_output_format": "mp4",
+            "outtmpl": str(self.work / "download.%(ext)s"),
+            "progress_hooks": [hook],
+            "max_filesize": limits[LimitKey.max_file_size_mb] * 1024 * 1024,
+        }
+        try:
+            with yt_dlp.YoutubeDL(opts) as ydl:
+                done = ydl.process_ie_result(info, download=True)
+        except yt_dlp.utils.DownloadError as e:
+            raise _fail_project(self.ctx, self.project_id, ErrorCode.import_failed, str(e)[:500]) from e
+        files = [Path(d["filepath"]) for d in done.get("requested_downloads") or [] if d.get("filepath")]
+        if not files or not files[0].exists():
+            raise _fail_project(
+                self.ctx,
+                self.project_id,
+                ErrorCode.import_failed,
+                "the video was larger than your file size limit or could not be saved",
+            )
+        path = self.work / ("source" + Path(self.source_key).suffix)
+        files[0].rename(path)
+        size = path.stat().st_size
+        storage.upload_file(str(path), self.source_key, "video/mp4")
+        self._source = path  # later stages use this file instead of downloading it again
+        title = str(info.get("title") or IMPORT_TITLE)[:200]
+        with session_scope() as tx:
+            jobqueue.renew(tx, self.ctx.job_id, self.ctx.worker)
+            p = tx.get(Project, self.project_id, with_for_update=True)
+            if p is not None:
+                p.size_bytes = size
+                if p.title == IMPORT_TITLE:
+                    p.title = title
+        self.ctx.progress("fetch", 100)
+        return {"key": self.source_key, "video_id": info.get("id"), "title": title, "size": size}
 
     def probe(self) -> dict[str, Any]:
         _reporter(self.ctx, "probe")(0)

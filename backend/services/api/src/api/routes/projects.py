@@ -17,6 +17,8 @@ from api.deps import Tx
 from api.schemas import (
     CreateProjectIn,
     CreateProjectOut,
+    ImportIn,
+    ImportOut,
     JobOut,
     PartUrlsIn,
     PartUrlsOut,
@@ -41,6 +43,7 @@ from core.enums import JobKind, ProjectStatus
 from core.errors import AppError, ErrorCode
 from core.jobs import IngestPayload
 from core.settings import LimitKey
+from core.youtube import watch_url, youtube_id
 from db.ids import uuid7
 from db.models import EdlVersion, Job, Message, Project
 from jobqueue import enqueue, retry_failed
@@ -80,6 +83,41 @@ def create_project(body: CreateProjectIn, user: Me, tx: Tx) -> CreateProjectOut:
         part_size_mb=storage.PART_SIZE_MB,
         part_count=max(1, math.ceil(body.size / part_bytes)),
     )
+
+
+IMPORT_TITLE = "YouTube video"  # until the fetch stage reads the real title (same text in worker ingest.py)
+
+
+@router.post("/projects/import", response_model=ImportOut, status_code=201)
+def import_project(body: ImportIn, user: Me, tx: Tx) -> ImportOut:
+    """A video from a YouTube link. The server fetches it (ingest stage "fetch"), so nothing goes through the
+    browser; length and size limits are checked there, once the video's details are known."""
+    video_id = youtube_id(body.url)
+    if video_id is None:
+        raise AppError(ErrorCode.bad_request, "That doesn't look like a YouTube video link.")
+    check_new_upload(tx, user.id, 0, None)
+    project_id = uuid7()
+    tx.add(
+        Project(
+            id=project_id,
+            user_id=user.id,
+            title=IMPORT_TITLE,
+            status=ProjectStatus.ingesting.value,
+            source_key=storage.source_key(user.id, project_id, "source.mp4"),
+            size_bytes=0,
+        )
+    )
+    tx.flush()
+    job = enqueue(
+        tx,
+        JobKind.ingest,
+        IngestPayload(project_id=project_id, source_url=watch_url(video_id)).model_dump(mode="json"),
+        user.id,
+        project_id,
+    )
+    out = job_out(job)
+    assert out is not None
+    return ImportOut(project_id=project_id, job=out)
 
 
 @router.post("/projects/{project_id}/upload/part-urls", response_model=PartUrlsOut)

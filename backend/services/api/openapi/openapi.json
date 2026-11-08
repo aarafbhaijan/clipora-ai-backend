@@ -193,6 +193,98 @@
     }
    }
   },
+  "/api/projects/import": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Import Project",
+    "description": "A video from a YouTube link. The server fetches it (ingest stage \"fetch\"), so nothing goes through the\nbrowser; length and size limits are checked there, once the video's details are known.",
+    "operationId": "import_project_api_projects_import_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ImportIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ImportOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
   "/api/projects/{project_id}/upload/part-urls": {
    "post": {
     "tags": [
@@ -1042,6 +1134,110 @@
      },
      "409": {
       "description": "version_conflict, details.latest holds the current plan"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/api/projects/{project_id}/reframe": {
+   "post": {
+    "tags": [
+     "editing"
+    ],
+    "summary": "Reframe",
+    "description": "The whole video in another shape (e.g. portrait), following the speaker: a new edited video, ready to export.",
+    "operationId": "reframe_api_projects__project_id__reframe_post",
+    "parameters": [
+     {
+      "name": "project_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Project Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReframeIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EdlOut"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorEnvelope"
+        }
+       }
+      },
+      "description": "Conflict"
      },
      "422": {
       "content": {
@@ -4099,6 +4295,39 @@
     ],
     "title": "Framing"
    },
+   "ImportIn": {
+    "properties": {
+     "url": {
+      "type": "string",
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Url"
+     }
+    },
+    "type": "object",
+    "required": [
+     "url"
+    ],
+    "title": "ImportIn"
+   },
+   "ImportOut": {
+    "properties": {
+     "project_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Project Id"
+     },
+     "job": {
+      "$ref": "#/components/schemas/JobOut"
+     }
+    },
+    "type": "object",
+    "required": [
+     "project_id",
+     "job"
+    ],
+    "title": "ImportOut"
+   },
    "JobOut": {
     "properties": {
      "id": {
@@ -5034,6 +5263,27 @@
      "next_cursor"
     ],
     "title": "ProjectPage"
+   },
+   "ReframeIn": {
+    "properties": {
+     "aspect": {
+      "type": "string",
+      "pattern": "^\\d{1,3}:\\d{1,3}$",
+      "title": "Aspect",
+      "default": "9:16"
+     },
+     "framing": {
+      "type": "string",
+      "enum": [
+       "crop",
+       "fit"
+      ],
+      "title": "Framing",
+      "default": "crop"
+     }
+    },
+    "type": "object",
+    "title": "ReframeIn"
    },
    "RenameIn": {
     "properties": {

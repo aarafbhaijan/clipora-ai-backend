@@ -149,3 +149,12 @@ def test_snap_and_srt() -> None:
     assert snap(0.4, tr.word_boundaries(), 0.5) == 0.5
     assert snap(3.0, tr.word_boundaries(), 0.5) is None
     assert to_srt(tr.cues, {"c1": "Hi"}) == "1\n00:00:00,000 --> 00:00:01,200\nHi\n"
+
+
+def test_whole_video_reframe_is_exempt_from_the_user_length_limit() -> None:
+    # A 10-minute video reframed as one clip is allowed; a 10-minute cut that skips a bit is still too long.
+    cuts = {"default": {"type": "cut", "duration_s": 0.4}, "overrides": []}
+    whole = make_edl(segments=[{"id": "s1", "src_start": 0.0, "src_end": 600.0}], transitions=cuts)
+    assert find_issues(whole, Author.user) == []
+    partial = make_edl(segments=[{"id": "s1", "src_start": 5.0, "src_end": 600.0}], transitions=cuts)
+    assert [i.path for i in find_issues(partial, Author.user)] == ["output"]

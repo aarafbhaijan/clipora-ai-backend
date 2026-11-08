@@ -88,6 +88,20 @@ class CreateProjectOut(BaseModel):
     part_count: int
 
 
+class ReframeIn(BaseModel):
+    aspect: str = Field(default="9:16", pattern=r"^\d{1,3}:\d{1,3}$")
+    framing: Literal["crop", "fit"] = "crop"
+
+
+class ImportIn(BaseModel):
+    url: str = Field(min_length=1, max_length=2000)
+
+
+class ImportOut(BaseModel):
+    project_id: uuid.UUID
+    job: JobOut
+
+
 class PartUrlsIn(BaseModel):
     part_numbers: list[int] = Field(min_length=1, max_length=100)
 

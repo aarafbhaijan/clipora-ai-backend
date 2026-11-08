@@ -9,7 +9,7 @@ Applies to everything in `frontend`. The one hard rule: **every visible componen
 3. Colors, spacing, radius and font sizes come from antd design tokens (`theme.useToken`). No hard-coded hex values in components.
 4. If antd lacks something, build it from antd parts. If that is impossible, add it to the exceptions list in section 9 first, with the reason, then build it.
 5. Keep antd screens in client components. Where a server component needs a dot-notation part such as `Select.Option`, import it from its own path, as antd's Next.js guide says.
-6. One `XProvider` at the root holds the theme. **Dark theme only** (user decision 2026-10-25): antd's dark algorithm with tuned tokens so it feels soft and pleasant, not pure black. No light mode and no theme switch. Seed and alias tokens live in one theme file, the only place colour values are written.
+6. One `XProvider` at the root holds the theme. **Dark theme only** (user decision 2026-10-25). Since 2026-10-27 (user decision) it looks like an IDE: VS Code's layout conventions (compact 13 px type, small radii, flat panels, Explorer-style section headers, a status bar) in GitHub's dark colours (Primer dark: `#0d1117` canvas, `#010409` side bar and status bar, `#1f6feb` accent). The agent has its own purple mark. No light mode and no theme switch. Seed and alias tokens, plus the few workbench colours antd has no token for (`ideColors`), live in `frontend/src/theme.ts`, the only place colour values are written.
 7. Plain language in the UI. Never show "EDL", "SQS", "job" or "checkpoint" to a user. Say "plan", "waiting", "working on it".
 
 ## 2. Starting point
@@ -46,6 +46,17 @@ Use `Splitter` so panes can be resized.
 ```
 
 The export action is a primary button in the editor header, opening a `Drawer`.
+
+### Whole-video convert and YouTube import (2026-10-27)
+
+- Before any plan exists, a bar above the player offers **Convert the whole video**: a shape (`Segmented`: 9:16, 4:5, 1:1) and **Convert** or **Convert & export** (opens the export drawer once the plan loads). The result is an edited video titled "Full video · 9:16" with the speaker-following crop.
+- The projects page has an **Import from YouTube** card (`Input` with a link icon, `Button`) above the upload box. The server fetches the video; the first stage reads "Fetching from YouTube".
+
+### Agent presence (2026-10-27)
+
+- **Status bar** (`editor/StatusBar.tsx`) at the bottom of the editor: the agent's state on the left ("Clipora agent: Finding the right moments (2/6) · 25%", turns blue while it works; click opens the Agent tab), then plan version and clip count; output shape, save state and export state on the right.
+- **Chat tab**: a header with the agent's mark and a status badge, avatars and a name on replies, the whole step plan while it works (done, running, pending), and a `Welcome` with starter tasks on an empty chat.
+- One source of truth for the agent's state: `frontend/src/lib/agent.ts` (`agentStatus`, `AGENT_STEPS`).
 
 ## 5. Component map
 

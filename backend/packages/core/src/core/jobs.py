@@ -35,7 +35,7 @@ JOB_SPECS: dict[JobKind, JobSpec] = {
         JobSpec(JobKind.suggest, QueueName.agent, 2 * 60, 3, 5),
         JobSpec(JobKind.metadata, QueueName.agent, 3 * 60, 3, 5),
         JobSpec(JobKind.distill, QueueName.agent, 2 * 60, 3, 5),
-        JobSpec(JobKind.export, QueueName.export, 30 * 60, 2, 30),
+        JobSpec(JobKind.export, QueueName.export, 90 * 60, 2, 30),  # a whole reframed video can be an hour long
     )
 }
 
@@ -43,6 +43,7 @@ JOB_SPECS: dict[JobKind, JobSpec] = {
 class IngestPayload(BaseModel):
     project_id: UUID
     user_srt: bool = False
+    source_url: str | None = None  # a YouTube link: the "fetch" stage downloads it to the source key first
 
 
 class AgentPayload(BaseModel):
@@ -74,6 +75,7 @@ class ExportPayload(BaseModel):
 
 
 INGEST_STAGES: tuple[str, ...] = (
+    "fetch",  # only for imports from a link
     "probe",
     "transcribe",
     "proxy",

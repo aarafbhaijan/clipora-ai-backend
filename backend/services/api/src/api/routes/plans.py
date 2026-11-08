@@ -8,10 +8,11 @@ from fastapi import APIRouter, Header
 from api.access import own_project
 from api.auth import Me
 from api.deps import Tx
-from api.schemas import EdlOut, EdlVersionOut, SpeakerOut
-from api.services.plans import save_user_plan, version_history, version_row
+from api.schemas import EdlOut, EdlVersionOut, ReframeIn, SpeakerOut
+from api.services.plans import reframe_plan, save_user_plan, version_history, version_row
 from api.services.speaker import speaker_for
 from core.edl import EDL
+from core.enums import Framing
 from core.errors import AppError, ErrorCode
 
 router = APIRouter(tags=["editing"])
@@ -31,6 +32,14 @@ def save_edl(
 ) -> EdlOut:
     project = own_project(tx, user, project_id, lock=True)
     version, saved = save_user_plan(tx, user, project, edl, if_match)
+    return EdlOut(version=version, edl=saved)
+
+
+@router.post("/projects/{project_id}/reframe", response_model=EdlOut, status_code=201)
+def reframe(project_id: uuid.UUID, body: ReframeIn, user: Me, tx: Tx) -> EdlOut:
+    """The whole video in another shape (e.g. portrait), following the speaker: a new edited video, ready to export."""
+    project = own_project(tx, user, project_id, lock=True)
+    version, saved = reframe_plan(tx, user, project, body.aspect, Framing(body.framing))
     return EdlOut(version=version, edl=saved)
 
 

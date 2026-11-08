@@ -16,6 +16,7 @@ MIN_SEGMENTS = 1
 MAX_SEGMENTS = 30
 USER_MIN_OUTPUT_S = 3.0
 USER_MAX_OUTPUT_S = 180.0
+FULL_VIDEO_SLACK_S = 0.5  # a single clip this close to both ends is the whole video
 AGENT_TARGET_TOLERANCE = 0.10
 _EPS = 1e-6
 
@@ -24,6 +25,17 @@ _EPS = 1e-6
 class Issue:
     path: str
     message: str
+
+
+def is_full_video(edl: EDL) -> bool:
+    """One clip covering the whole source: the video reframed to another shape, not a short. It is exempt from
+    the user length limit (the source's own length limit already applies)."""
+    segs = edl.segments
+    return (
+        len(segs) == 1
+        and segs[0].src_start <= FULL_VIDEO_SLACK_S
+        and segs[0].src_end >= edl.source.duration_s - FULL_VIDEO_SLACK_S
+    )
 
 
 def find_issues(edl: EDL, author: Author) -> list[Issue]:
@@ -83,7 +95,11 @@ def find_issues(edl: EDL, author: Author) -> list[Issue]:
             hi = out.target_duration_s * (1 + AGENT_TARGET_TOLERANCE)
             if not lo - _EPS <= total <= hi + _EPS:
                 add("output", f"length {total:.1f} s is not within 10% of target {out.target_duration_s} s")
-        elif author == Author.user and not USER_MIN_OUTPUT_S - _EPS <= total <= USER_MAX_OUTPUT_S + _EPS:
+        elif (
+            author == Author.user
+            and not is_full_video(edl)
+            and not USER_MIN_OUTPUT_S - _EPS <= total <= USER_MAX_OUTPUT_S + _EPS
+        ):
             add("output", f"length {total:.1f} s must be {USER_MIN_OUTPUT_S} to {USER_MAX_OUTPUT_S} s")
     return issues
 

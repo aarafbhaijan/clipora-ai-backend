@@ -24,6 +24,7 @@ class ErrorCode(StrEnum):
     rate_limited = "rate_limited"
     # Job error codes (jobs.error_code), never returned as HTTP errors.
     lease_lost = "lease_lost"
+    import_failed = "import_failed"  # the link's video could not be fetched (private, removed, region-locked)
     timeout = "timeout"
     internal = "internal"
 

@@ -13,11 +13,13 @@ from api.assets import detections_key, ingest_markers
 from api.auth import CurrentUser
 from api.schemas import EdlVersionOut, SegmentBrief
 from api.services.learning import record_plan_edit
+from core.aspect import output_size
 from core.crop import Detections, crop_path
-from core.edl import EDL
-from core.enums import Author, MessageRole, Thread
+from core.edl import EDL, Meta, Output, Segment, Source, Transition, Transitions
+from core.enums import Author, Framing, MessageRole, Thread
 from core.errors import AppError, ErrorCode
 from core.timemap import output_duration
+from core.transitions import TransitionType
 from core.validation import validate
 from db.ids import uuid7
 from db.models import EdlVersion, Message, Project
@@ -67,8 +69,11 @@ def recompute_crops(tx: Session, project: Project, new: EDL, old: EDL | None) ->
 # ---- Saving -----------------------------------------------------------------------------------------------
 
 
-def save_user_plan(tx: Session, user: CurrentUser, project: Project, edl: EDL, if_match: int) -> tuple[int, EDL]:
-    """Append the user's plan as the next version. 409 version_conflict (with the latest plan) if it moved."""
+def save_user_plan(
+    tx: Session, user: CurrentUser, project: Project, edl: EDL, if_match: int, learn: bool = True
+) -> tuple[int, EDL]:
+    """Append the user's plan as the next version. 409 version_conflict (with the latest plan) if it moved.
+    `learn`: record the change as an edit of the previous plan (False for a new video such as a reframe)."""
     current = current_version_row(tx, project)
     if if_match != project.current_version:
         latest = EDL.model_validate(current.edl).to_json() if current else None
@@ -103,9 +108,30 @@ def save_user_plan(tx: Session, user: CurrentUser, project: Project, edl: EDL, i
         )
     )
     project.current_version = version
-    if current is not None:
+    if current is not None and learn:
         record_plan_edit(tx, user, project, current, new)
     return version, new
+
+
+def reframe_plan(tx: Session, user: CurrentUser, project: Project, aspect: str, framing: Framing) -> tuple[int, EDL]:
+    """A new edited video: the whole source in another shape, the crop following whoever talks. No AI involved."""
+    if project.width is None or project.height is None or project.duration_s is None:
+        raise AppError(ErrorCode.bad_request, "This video is still being prepared.")
+    try:
+        width, height = output_size(aspect)
+    except ValueError as e:
+        raise AppError(ErrorCode.bad_request, str(e)) from e
+    edl = EDL(
+        source=Source(
+            key=project.source_key, duration_s=project.duration_s, width=project.width, height=project.height,
+            fps=project.fps or 30,
+        ),
+        output=Output(aspect=aspect, width=width, height=height, framing=framing),
+        segments=[Segment(id="s1", src_start=0.0, src_end=project.duration_s, reason="The whole video")],
+        transitions=Transitions(default=Transition(type=TransitionType.cut)),
+        meta=Meta.model_validate({"short": {"id": uuid.uuid4().hex[:10], "title": f"Full video · {aspect}"}}),
+    )  # fmt: skip
+    return save_user_plan(tx, user, project, edl, project.current_version, learn=False)
 
 
 # ---- History, grouped into generated videos ---------------------------------------------------------------
